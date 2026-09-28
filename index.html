@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدليل الإداري والتشغيلي الشامل - Poultry ERP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #f1f5f9; color: #0f172a; line-height: 1.8; }
+        .sidebar-link { display: block; padding: 0.75rem 1rem; color: #475569; border-radius: 0.5rem; transition: all 0.2s; font-weight: 600; font-size: 0.9rem; }
+        .sidebar-link:hover { background-color: #e0e7ff; color: #4f46e5; }
+        
+        .content-section { background: white; border-radius: 1rem; padding: 2.5rem; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .content-title { font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 1rem; }
+        .content-subtitle { font-size: 1.25rem; font-weight: 700; color: #334155; margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        
+        .text-body { color: #475569; margin-bottom: 1rem; text-align: justify; font-size: 1rem; leading-trim: both; text-edge: cap; }
+        .admin-note { background-color: #f8fafc; border-right: 4px solid #4f46e5; padding: 1.25rem; border-radius: 0.5rem; margin: 1.5rem 0; font-size: 0.95rem; }
+        .admin-note h4 { font-weight: 800; color: #1e293b; margin-bottom: 0.5rem; }
+        
+        ul.styled-list { list-style: none; padding: 0; margin-bottom: 1.5rem; }
+        ul.styled-list li { position: relative; padding-right: 1.75rem; margin-bottom: 0.75rem; color: #475569; font-weight: 500; }
+        ul.styled-list li::before { content: '\f104'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; right: 0; color: #4f46e5; font-size: 1rem; top: 4px; }
+        
+        .workflow-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1rem; display: flex; gap: 1.5rem; align-items: flex-start; }
+        .workflow-icon { width: 3rem; height: 3rem; background: #e0e7ff; color: #4f46e5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+        
+        .ui-part { background: #f8fafc; border: 1px solid #e2e8f0; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1rem; }
+        .ui-part-title { font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body class="antialiased flex h-screen overflow-hidden selection:bg-indigo-100 selection:text-indigo-900">
+
+    <!-- Sidebar / TOC -->
+    <aside class="w-80 bg-white border-l border-slate-200 h-full overflow-y-auto hidden md:block shrink-0 shadow-lg relative z-20">
+        <div class="p-6 border-b border-slate-100 sticky top-0 bg-white/90 backdrop-blur-sm">
+            <h1 class="text-2xl font-black text-slate-800 tracking-tight">Poultry<span class="text-slate-500">ERP</span></h1>
+            <p class="text-xs font-bold text-indigo-600 uppercase tracking-widest mt-1">الدليل الإداري الموحد</p>
+        </div>
+        <nav class="p-4 space-y-1 pb-20">
+            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 mt-4 px-2">مقدمة النظام</div>
+            <a href="#intro" class="sidebar-link">1. المقدمة والأهداف</a>
+            <a href="#workflow" class="sidebar-link">2. الهيكلية ودورة العمل</a>
+            <a href="#onboarding" class="sidebar-link">3. التهيئة الأولى للنظام</a>
+            
+            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 mt-6 px-2">دليل المربي (الميدان)</div>
+            <a href="#farmer-ui" class="sidebar-link">4. شرح واجهة المربي</a>
+            <a href="#farmer-dashboard" class="sidebar-link">5. اللوحة الرئيسية</a>
+            <a href="#farmer-daily" class="sidebar-link">6. التقرير اليومي</a>
+            <a href="#farmer-consumption" class="sidebar-link">7. الاستهلاك العام</a>
+            <a href="#farmer-warehouse" class="sidebar-link">8. المخزن وطلبات التزويد</a>
+            <a href="#farmer-expenses" class="sidebar-link">9. المصاريف الميدانية والسلف</a>
+            
+            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 mt-6 px-2">دليل الإدارة (الرقابة)</div>
+            <a href="#admin-ui" class="sidebar-link">10. شرح واجهة الإدارة</a>
+            <a href="#admin-dashboard" class="sidebar-link">11. لوحة القيادة والمؤشرات</a>
+            <a href="#admin-invoicing" class="sidebar-link">12. إدارة الفواتير</a>
+            <a href="#admin-partners" class="sidebar-link">13. العملاء والموردين</a>
+            <a href="#admin-hr" class="sidebar-link">14. الموارد البشرية</a>
+            <a href="#admin-inventory" class="sidebar-link">15. المخازن والمستودعات</a>
+            <a href="#admin-farms" class="sidebar-link">16. المزارع والقطعان</a>
+            <a href="#admin-incubation" class="sidebar-link">17. مسار التفريخ</a>
+            <a href="#admin-reports" class="sidebar-link">18. التقارير والإحصائيات</a>
+            <a href="#admin-security" class="sidebar-link">19. الأمان والإعدادات</a>
+
+            <div class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2 mt-6 px-2">أدلة متقدمة</div>
+            <a href="#advanced-lifecycle" class="sidebar-link">20. دورة حياة القطيع الشاملة</a>
+            <a href="#advanced-vet" class="sidebar-link">21. البروتوكولات البيطرية</a>
+            <a href="#advanced-analytics" class="sidebar-link">22. قراءة وتحليل الأرقام</a>
+            <a href="#advanced-faq" class="sidebar-link">23. الأسئلة الشائعة (FAQ)</a>
+            <a href="#advanced-archive" class="sidebar-link">24. الأرشيف والنسخ الاحتياطي</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 h-full overflow-y-auto bg-slate-50 relative scroll-smooth">
+        
+        <!-- Header Image / Banner -->
+        <div class="bg-indigo-900 pt-20 pb-32 px-10 text-white relative">
+            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+            <div class="relative z-10 max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-5xl font-black mb-4 leading-tight">وثيقة الدليل التشغيلي والإداري</h1>
+                <p class="text-xl text-indigo-200 font-medium leading-relaxed max-w-2xl">المرجع التنظيمي الشامل لنظام إدارة مزارع الدواجن. يوفر هذا الدليل فهماً عميقاً لترابط العمليات بين الإدارة المركزية والوحدات الإنتاجية (المزارع).</p>
+            </div>
+        </div>
+
+        <!-- Content Container -->
+        <div class="max-w-4xl mx-auto px-6 -mt-20 relative z-10 pb-24 space-y-8">
+
+            <!-- Intro -->
+            <section id="intro" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-book-open text-indigo-500"></i> 1. المقدمة والأهداف</h2>
+                <p class="text-body">
+                    يُعتبر هذا المستند المرجع الإداري والتنظيمي المعتمد لكافة مستخدمي نظام <strong>Poultry ERP</strong>. تم تصميم النظام ليُعالج تحديات إدارة مزارع الدواجن من خلال فصل المهام التشغيلية (التي يقوم بها المربي في الحظيرة) عن المهام الرقابية والمالية (التي تتخذها الإدارة المركزية).
+                </p>
+                <p class="text-body">
+                    <strong>الهدف الأساسي:</strong> توفير منصة مركزية تمنع تضارب البيانات، تقلل من الأخطاء البشرية في الحسابات، وتضمن شفافية تامة في تتبع المداخيل، المصاريف، والأرباح الحقيقية لكل دورة إنتاجية.
+                </p>
+            </section>
+
+            <!-- Workflow -->
+            <section id="workflow" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-arrows-spin text-indigo-500"></i> 2. الهيكلية ودورة العمل وتمرير المهام</h2>
+                <p class="text-body">
+                    يعمل النظام كحلقة وصل ديناميكية بين "المكتب المركزي" و"المزرعة الميدانية". العلاقة بين جهة الإدارة وجهة المربي ليست مجرد إدخال بيانات، بل هي <strong>تمرير متسلسل للمهام</strong> (Workflow) يضمن الرقابة.
+                </p>
+                
+                <h3 class="content-subtitle"><i class="fa-solid fa-link text-slate-400"></i> كيف يتم تمرير المهام؟</h3>
+                
+                <div class="workflow-box">
+                    <div class="workflow-icon"><i class="fa-solid fa-1"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-lg mb-2">الإدارة تُهيئ البيئة (الإنشاء)</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">تقوم الإدارة أولاً بإنشاء المزرعة، تخصيص المربي لها، ثم شراء "قطيع جديد" وإسناده لتلك المزرعة. بمجرد أن تعتمد الإدارة القطيع، يظهر تلقائياً في شاشة المربي.</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-box">
+                    <div class="workflow-icon"><i class="fa-solid fa-2"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-lg mb-2">المربي يُسجل النشاط (التشغيل اليومي)</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">يتولى المربي مهمة توثيق الواقع الميداني بشكل يومي. يدخل أعداد البيض، العلف المستهلك، والنفوق. <strong>تُرحّل البيانات لحظياً</strong> إلى قاعدة بيانات الإدارة.</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-box">
+                    <div class="workflow-icon"><i class="fa-solid fa-3"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-lg mb-2">الإدارة تراقب وتتخذ القرار (المعالجة المالية)</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">ترى الإدارة البيانات الواردة من المزرعة لإنشاء <strong>فواتير مبيعات</strong> للعملاء أو متابعة رصيد العلف في المخزن لطلب طلبيات جديدة من الموردين.</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-box">
+                    <div class="workflow-icon"><i class="fa-solid fa-4"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-lg mb-2">الإدارة تُقفل الدورة (الختام)</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">عند انتهاء عمر القطيع، تقوم الإدارة بالضغط على زر "إنهاء القطيع". يُصدر النظام تقريراً مالياً ختامياً يوضح الأرباح أو الخسائر الصافية.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Onboarding -->
+            <section id="onboarding" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-power-off text-indigo-500"></i> 3. التهيئة الأولى للنظام (Onboarding)</h2>
+                <p class="text-body">
+                    لضمان عمل النظام بشكل سليم، يجب على الإدارة اتباع التسلسل المنطقي التالي في اليوم الأول من استخدام النظام:
+                </p>
+                <div class="ui-part border-l-4 border-l-amber-500">
+                    <h4 class="ui-part-title"><i class="fa-solid fa-list-ol"></i> خطوات الانطلاق:</h4>
+                    <ul class="styled-list mt-2">
+                        <li><strong>الخطوة 1: الإعدادات العامة:</strong> الذهاب إلى (الإعدادات > إعدادات النظام) لرفع شعار الشركة وتحديد العملة المحلية واسم المؤسسة لكي تظهر بشكل صحيح على الفواتير والتقارير.</li>
+                        <li><strong>الخطوة 2: رأس المال الافتتاحي:</strong> الذهاب إلى (الشركاء والتمويل) وإضافة مبلغ كرأس مال، أو فتح "سند قبض" عام لإدخال الرصيد الحالي للصندوق. هذا يمنع ظهور الرصيد بالسالب عند أول عملية شراء.</li>
+                        <li><strong>الخطوة 3: تأسيس البنية التحتية:</strong> الذهاب إلى (المزارع) وإنشاء الحظائر الموجودة، ثم الذهاب إلى (المستخدمين) وإنشاء حسابات للعمال والمربين وربطهم بالمزارع المخصصة لهم.</li>
+                        <li><strong>الخطوة 4: الانطلاقة التشغيلية:</strong> الآن يمكن الذهاب إلى (القطعان) والبدء بإضافة قطيع جديد وتخصيصه للمزارع لبدء الدورة الحقيقية.</li>
+                    </ul>
+                </div>
+            </section>
+
+
+            <!-- FARMER GUIDE -->
+            <div class="relative py-4 my-8">
+                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div class="w-full border-t border-slate-300"></div>
+                </div>
+                <div class="relative flex justify-center">
+                    <span class="bg-slate-50 px-4 text-xl font-black text-emerald-700 uppercase tracking-widest"><i class="fa-solid fa-tractor ml-2"></i> دليل المربي (المزرعة)</span>
+                </div>
+            </div>
+
+            <!-- Farmer UI Anatomy -->
+            <section id="farmer-ui" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-mobile-screen text-emerald-500"></i> 4. تشريح وشرح واجهة المربي</h2>
+                <p class="text-body">
+                    تم تصميم واجهة المربي لتكون مبسطة للغاية ومناسبة لشاشات الهواتف المحمولة لضمان سهولة الاستخدام من داخل الحظيرة. وتتكون من الأقسام التالية:
+                </p>
+                <div class="ui-part border-l-4 border-l-emerald-500">
+                    <h4 class="ui-part-title"><i class="fa-solid fa-bars"></i> القائمة الجانبية (Sidebar)</h4>
+                    <p class="text-sm text-slate-600">تحتوي على روابط سريعة للوصول إلى العمليات اليومية. القائمة قابلة للطي على الهواتف.</p>
+                </div>
+                <div class="ui-part border-l-4 border-l-emerald-500">
+                    <h4 class="ui-part-title"><i class="fa-regular fa-window-maximize"></i> منطقة المحتوى المركزي (Content Area)</h4>
+                    <p class="text-sm text-slate-600">هي المساحة الأكبر، حيث تظهر البطاقات الكبيرة والنماذج التي يمكن الضغط عليها بسهولة بالأصابع.</p>
+                </div>
+            </section>
+
+            <!-- Farmer Dashboard -->
+            <section id="farmer-dashboard" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-house text-emerald-500"></i> 5. اللوحة الرئيسية للمربي</h2>
+                <p class="text-body">
+                    بمجرد تسجيل دخول المربي، يُوجهه النظام مباشرة إلى <strong>القطعان النشطة</strong> في مزرعته.
+                </p>
+                <ul class="styled-list">
+                    <li>تعرض اللوحة العمر الحالي للقطيع، والعدد المتبقي للطيور.</li>
+                    <li>يُصدر النظام تحذيرات مرئية إذا لم يتم تسجيل التقرير اليومي لليوم السابق.</li>
+                </ul>
+            </section>
+
+            <!-- Farmer Daily Input -->
+            <section id="farmer-daily" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-pen-to-square text-emerald-500"></i> 6. التقرير اليومي للقطيع</h2>
+                <p class="text-body">
+                    يدخل المربي هذه الشاشة لتسجيل الإنتاج والنفوق الخاص بالقطيع.
+                </p>
+                <div class="admin-note border-emerald-500">
+                    <h4 class="text-emerald-800">البيانات الأساسية:</h4>
+                    <p class="text-sm leading-relaxed mb-2"><strong>1. معدل النفوق (الوفيات):</strong> إدخال عدد الطيور التي نفقت ليتم خصمها من الإجمالي.</p>
+                    <p class="text-sm leading-relaxed"><strong>2. إنتاج البيض:</strong> في حالة القطعان البياضة، يتم تسجيل الإنتاج.</p>
+                </div>
+            </section>
+
+            <!-- Farmer Consumption -->
+            <section id="farmer-consumption" class="content-section border-t-4 border-t-emerald-500">
+                <h2 class="content-title"><i class="fa-solid fa-cart-arrow-down text-emerald-500"></i> 7. الاستهلاك العام (علف، أدوية، مواد)</h2>
+                <p class="text-body">
+                    لضمان دقة المخزون، لا يكتب المربي أسماء المواد يدوياً، بل يختار <strong>الصنف الموجود مسبقاً في مخزون مزرعته</strong>.
+                </p>
+                <ul class="styled-list">
+                    <li>يختار المربي الصنف المتوفر من القائمة المنسدلة (التي تستدعي بيانات المخزن).</li>
+                    <li>يكتب الكمية المستهلكة ليتم خصمها مباشرة من الرصيد.</li>
+                    <li>تشمل هذه الآلية كافة أنواع الاستهلاك (العلف، الإبر، اللقاحات، والأدوية).</li>
+                </ul>
+            </section>
+
+            <!-- Farmer Warehouse & Supply -->
+            <section id="farmer-warehouse" class="content-section border-t-4 border-t-emerald-500">
+                <h2 class="content-title"><i class="fa-solid fa-box-open text-emerald-500"></i> 8. المخزن وطلبات التزويد</h2>
+                <p class="text-body">
+                    تم دمج واجهة "طلبات التزويد" داخل واجهة "مخزون المزرعة".
+                </p>
+                <ul class="styled-list">
+                    <li><strong>الاطلاع على المخزون:</strong> يرى المربي كل ما يتوفر لديه.</li>
+                    <li><strong>طلب تزويد مباشر:</strong> يمكنه بضغطة زر إرسال إشعار للإدارة بطلب كميات إضافية. يتضمن الطلب قائمة جاهزة بأشهر المواد (علف، أدوية، آلات) مع إمكانية إدخال عنصر جديد يدوياً.</li>
+                </ul>
+            </section>
+
+            <!-- Farmer Expenses -->
+            <section id="farmer-expenses" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-money-bill-wave text-emerald-500"></i> 9. المصاريف الميدانية والسلف</h2>
+                <p class="text-body">
+                    يمتلك المربي صلاحية تسجيل المصروفات التي تخرج من <strong>صندوق المزرعة النثري</strong>. يتم خصم سلف العمال آلياً من رواتبهم نهاية الشهر.
+                </p>
+            </section>
+
+
+            <!-- ADMIN GUIDE -->
+            <div class="relative py-4 my-8">
+                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div class="w-full border-t border-slate-300"></div>
+                </div>
+                <div class="relative flex justify-center">
+                    <span class="bg-slate-50 px-4 text-xl font-black text-indigo-700 uppercase tracking-widest"><i class="fa-solid fa-user-tie ml-2"></i> دليل الإدارة (المركزية والرقابة)</span>
+                </div>
+            </div>
+
+            <!-- Admin UI Anatomy -->
+            <section id="admin-ui" class="content-section border-t-4 border-t-indigo-600">
+                <h2 class="content-title"><i class="fa-solid fa-desktop text-indigo-500"></i> 10. تشريح وشرح واجهة الإدارة</h2>
+                <p class="text-body">
+                    واجهة الإدارة مُصممة لتعكس القوة الرقابية وتستوعب البيانات الضخمة (Data-Dense). تحتوي على قائمة جانبية متقدمة، شريط إشعارات علوي، ولوحات عرض جداول تفاعلية مع النوافذ المنبثقة (Modals) لتسريع الإدخال دون فقدان سياق الصفحة.
+                </p>
+            </section>
+
+            <!-- Admin Dashboard -->
+            <section id="admin-dashboard" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-chart-pie text-indigo-500"></i> 11. لوحة القيادة والمؤشرات المالية</h2>
+                <p class="text-body">
+                    تُعتبر هذه الشاشة بمثابة جهاز كشف النبض للمؤسسة.
+                </p>
+                <div class="admin-note">
+                    <h4>رصيد الصندوق (Cash Balance)</h4>
+                    <p class="text-sm leading-relaxed mb-4">يُمثل السيولة النقدية الفعلية بين يديك.</p>
+                    
+                    <h4>الرصيد الإجمالي الحقيقي (Total Net Worth)</h4>
+                    <p class="text-sm leading-relaxed">يُمثل الذمة المالية الكاملة (السيولة + ديون العملاء - ديون الموردين).</p>
+                </div>
+            </section>
+
+            <!-- Admin Invoicing -->
+            <section id="admin-invoicing" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-file-invoice-dollar text-indigo-500"></i> 12. إدارة الفواتير والمحاسبة</h2>
+                <p class="text-body">
+                    لا يتم إدخال الإيرادات أو المصروفات الكبرى بشكل عشوائي، بل يجب أن تمر عبر نظام فوترة (مبيعات ومشتريات وسندات قبض/دفع) لضبط الأرصدة تلقائياً.
+                </p>
+            </section>
+
+            <!-- Admin Partners -->
+            <section id="admin-partners" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-handshake text-indigo-500"></i> 13. العملاء، الموردين، والشركاء</h2>
+                <p class="text-body">
+                    تعريف الأطراف التجارية وضخ رأس المال أو تسجيل المسحوبات الشخصية للشركاء.
+                </p>
+            </section>
+
+            <!-- Admin HR -->
+            <section id="admin-hr" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-users-gear text-indigo-500"></i> 14. الموارد البشرية والعمال</h2>
+                <p class="text-body">
+                    إدارة أجور العمال وحسم السلف الميدانية (التي أدخلها المربي) آلياً أثناء صرف الراتب.
+                </p>
+            </section>
+
+            <!-- Admin Inventory -->
+            <section id="admin-inventory" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-boxes-stacked text-indigo-500"></i> 15. إدارة المخازن والمستودعات</h2>
+                <p class="text-body">
+                    مراقبة رصيد الأعلاف والأدوية. الرصيد يزيد بفواتير المشتريات وينقص بالاستهلاك الميداني، مع وجود إشعارات لطلبات تزويد المزارع واستيرادها تلقائياً للمخزن عند الموافقة.
+                </p>
+            </section>
+
+            <!-- Admin Farms & Flocks -->
+            <section id="admin-farms" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-map-location-dot text-indigo-500"></i> 16. إدارة المزارع والقطعان (التوجيه الذكي)</h2>
+                <p class="text-body">
+                    المزرعة هي الهيكل الجغرافي، بينما القطيع هو الأصل البيولوجي. يتم اختيار نوع القطيع (تسمين، بياض، أمهات) ليوجه النظام مساره المحاسبي.
+                </p>
+            </section>
+
+            <!-- Admin Incubation -->
+            <section id="admin-incubation" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-temperature-arrow-up text-indigo-500"></i> 17. مسار التفريخ والحاضنات (Hatcheries)</h2>
+                <p class="text-body">
+                    تتبع بيض التفريخ من دخول الفقاسة إلى خروج الكتاكيت وبيعها أو تحويلها لقطيع جديد.
+                </p>
+            </section>
+
+            <!-- Admin Reports -->
+            <section id="admin-reports" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-chart-line text-indigo-500"></i> 18. التقارير والإحصائيات المتقدمة</h2>
+                <p class="text-body">
+                    استخراج التقارير الختامية، ومنحنيات الإنتاج والنفوق لتقييم كفاءة كل قطيع.
+                </p>
+            </section>
+
+            <!-- Admin Security & Logs -->
+            <section id="admin-security" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-shield-halved text-indigo-500"></i> 19. الأمان، سجلات التدقيق، والإعدادات</h2>
+                <p class="text-body">
+                    أداة "سجل العمليات" (Audit Logs) التي توثق أي عملية إضافة أو تعديل باللهجة العامية لفض النزاعات الإدارية.
+                </p>
+            </section>
+
+
+            <!-- ADVANCED GUIDES -->
+            <div class="relative py-4 my-8">
+                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div class="w-full border-t border-slate-300"></div>
+                </div>
+                <div class="relative flex justify-center">
+                    <span class="bg-slate-50 px-4 text-xl font-black text-amber-600 uppercase tracking-widest"><i class="fa-solid fa-graduation-cap ml-2"></i> أدلة متقدمة وتحليلية</span>
+                </div>
+            </div>
+
+            <!-- Lifecycle -->
+            <section id="advanced-lifecycle" class="content-section border-t-4 border-t-amber-500">
+                <h2 class="content-title"><i class="fa-solid fa-timeline text-amber-500"></i> 20. دورة حياة القطيع الشاملة (End-to-End Lifecycle)</h2>
+                <p class="text-body">
+                    يضمن النظام تتبعاً دقيقاً لحياة القطيع من اليوم الأول حتى تصفيته، ويعالج كل مرحلة كمركز تكلفة (Cost Center) مستقل.
+                </p>
+                <div class="ui-part border-l-4 border-l-amber-400 mt-4">
+                    <h4 class="ui-part-title text-amber-700"><i class="fa-solid fa-drumstick-bite"></i> سيناريو دجاج التسمين (Broiler)</h4>
+                    <p class="text-sm text-slate-600 mb-2">الدورة قصيرة (عادة 35-45 يوم). التركيز هنا على <strong>الأوزان</strong> و <strong>النفوق</strong>. يقوم المربي بتسجيل أوزان عينات الطيور دورياً لمعرفة مدى توافق الوزن مع استهلاك العلف. في نهاية الدورة يُباع القطيع لشركات الذبح، وتصدر الفواتير، ثم تغلق الإدارة الدورة لمعرفة الربح.</p>
+                </div>
+                <div class="ui-part border-l-4 border-l-amber-400">
+                    <h4 class="ui-part-title text-amber-700"><i class="fa-solid fa-egg"></i> سيناريو الدجاج البياض (Layer)</h4>
+                    <p class="text-sm text-slate-600 mb-2">ينقسم لمرحلتين:</p>
+                    <ul class="styled-list text-sm">
+                        <li><strong>فترة التربية والتجهيز:</strong> (حتى الأسبوع 18 تقريباً) حيث تكون هناك مصاريف (علف، أدوية) دون أي إنتاج. يخزن النظام هذه التكاليف كـ "تكاليف تأسيس القطيع".</li>
+                        <li><strong>فترة الإنتاج:</strong> يبدأ المربي بتسجيل كميات أطباق البيض يومياً. تقوم الإدارة ببيع البيض وتوريد الإيرادات لصندوق المزرعة.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Veterinary -->
+            <section id="advanced-vet" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-syringe text-amber-500"></i> 21. البروتوكولات البيطرية والتلقيح</h2>
+                <p class="text-body">
+                    إدارة صحة القطيع هي الخط الفاصل بين الربح المرتفع والخسارة الكارثية.
+                </p>
+                <ul class="styled-list">
+                    <li><strong>تسجيل الاستهلاك الطبي:</strong> عند استخدام المربي لأي مضاد حيوي أو لقاح، يجب تسجيله في "الاستهلاك العام" لاقتطاعه من المخزن وإدراجه كـ "تكلفة علاجية" على القطيع المستهدف.</li>
+                    <li><strong>الملاحظات البيطرية:</strong> عند حدوث نفوق غير طبيعي، يجب على المربي إرفاق "ملاحظة" في التقرير اليومي ليقوم المهندس الزراعي أو الإدارة المركزية برؤيتها والتدخل الفوري لمنع تفشي المرض.</li>
+                </ul>
+            </section>
+
+            <!-- Data Analytics -->
+            <section id="advanced-analytics" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-magnifying-glass-chart text-amber-500"></i> 22. قراءة وتحليل الأرقام والمؤشرات</h2>
+                <p class="text-body">
+                    النظام لا يجمع الأرقام فقط، بل يحللها. إليك أهم المؤشرات التي يجب على المدير قراءتها بانتظام:
+                </p>
+                <div class="admin-note border-amber-500">
+                    <h4 class="text-amber-800">معدل التحويل الغذائي (FCR - Feed Conversion Ratio)</h4>
+                    <p class="text-sm leading-relaxed mb-4">في التسمين: هو كمية العلف المطلوبة لإنتاج 1 كيلوغرام من اللحم. (المعدل المثالي حوالي 1.5 إلى 1.8).<br>إذا كان الـ FCR = 2.2 مثلاً، فهذا يعني وجود <strong>هدر في العلف، أمراض معوية، أو سوء إدارة من المربي</strong>، ويجب التدخل الفوري.</p>
+                    
+                    <h4 class="text-amber-800">نسبة الإنتاج (Production Percentage)</h4>
+                    <p class="text-sm leading-relaxed">في البياض: عدد البيض المنتج يومياً مقارنة بعدد الدجاج الحي. إذا تجاوزت النسبة 90% فإن القطيع في ذروته، وإذا انخفضت تحت 70% دون سبب مرضي، قد يكون حان وقت تصفية القطيع.</p>
+                </div>
+            </section>
+
+            <!-- FAQ -->
+            <section id="advanced-faq" class="content-section">
+                <h2 class="content-title"><i class="fa-regular fa-circle-question text-amber-500"></i> 23. الأسئلة الشائعة (FAQ) واستكشاف الأخطاء</h2>
+                <p class="text-body">حلول سريعة لأبرز المواقف التي قد تواجه الإدارة:</p>
+                
+                <div class="space-y-4 mt-4">
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-slate-800 mb-1">س: لماذا يظهر رصيد الصندوق المركزي بالسالب؟</h4>
+                        <p class="text-sm text-slate-600">ج: يحدث هذا لأنك قمت بإنشاء فواتير مشتريات (أو صرف رواتب) نقداً بينما الصندوق الافتراضي فارغ. لتصحيح ذلك، اذهب لـ "الشركاء والتمويل" وأضف رأس مال للصندوق.</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-slate-800 mb-1">س: أنشأت قطيعاً جديداً لكن المربي لا يراه في شاشته؟</h4>
+                        <p class="text-sm text-slate-600">ج: تأكد من أمرين: (1) أنك قمت بربط هذا القطيع بـ "المزرعة" التي يمتلك المربي صلاحية الدخول إليها. (2) أن حالة القطيع "نشط" وليست مغلقة.</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-slate-800 mb-1">س: كيف نتراجع عن خطأ في المخزون أو رصيد العميل؟</h4>
+                        <p class="text-sm text-slate-600">ج: النظام مصمم محاسبياً لتجنب الحذف العشوائي. إذا كان الخطأ في فاتورة، يمكنك إصدار "فاتورة إرجاع" أو تعديل الفاتورة نفسها وسيتم تحديث الأرصدة آلياً.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Archiving -->
+            <section id="advanced-archive" class="content-section">
+                <h2 class="content-title"><i class="fa-solid fa-server text-amber-500"></i> 24. الأرشيف والنسخ الاحتياطي</h2>
+                <p class="text-body">
+                    البيانات هي أثمن ما تملكه المؤسسة. يوفر النظام آليات للحفاظ على هذه الثروة المعرفية.
+                </p>
+                <ul class="styled-list">
+                    <li><strong>أرشيف القطعان المغلقة:</strong> لا يختفي القطيع بعد بيعه، بل ينتقل إلى "الأرشيف". يمكنك العودة إليه لاحقاً لمقارنة تكاليف سنة 2023 مع 2026.</li>
+                    <li><strong>النسخ الاحتياطي اليدوي:</strong> من لوحة (الإعدادات)، يجب على الإدارة تنزيل نسخة (Database Backup) بشكل دوري (مثلاً كل أسبوع) وتخزينها في فلاش درايف لضمان عدم ضياع البيانات في الحالات الكارثية.</li>
+                </ul>
+            </section>
+
+        </div>
+    </main>
+
+</body>
+</html>
